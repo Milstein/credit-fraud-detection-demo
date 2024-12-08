@@ -42,7 +42,7 @@ demo = gr.Interface(
     outputs="textbox",
     examples=[
         [0.0, 1.0, 1.0, 1.0, 0.0],
-        [100, 1.2, 0.0, 0.0, 1.0]
+        [250.0, 1.8, 0.0, 0.0, 1.0]
         ],
     title="Predict Credit Card Fraud"
     )
