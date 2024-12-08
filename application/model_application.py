@@ -20,7 +20,7 @@ def predict(distance_from_last_transaction,ratio_to_median_purchase_price,used_c
                 "name": "dense_input", 
                 "shape": [1, 5], 
                 "datatype": "FP32",
-                "data": [[distance_from_last_transaction,ratio_to_median_purchase_price,used_chip,used_pin_number,online_order]]
+                "data": [distance_from_last_transaction,ratio_to_median_purchase_price,used_chip,used_pin_number,online_order]
             },
             ]
         }
@@ -31,6 +31,7 @@ def predict(distance_from_last_transaction,ratio_to_median_purchase_price,used_c
     response = requests.post(URL, json=payload, headers=headers)
     prediction = response.json()['outputs'][0]['data'][0]
 
+    print(prediction)
     return "Fraud" if prediction >=0.995 else "Not fraud"
 
 
