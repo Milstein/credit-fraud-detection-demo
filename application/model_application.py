@@ -30,7 +30,6 @@ def predict(distance_from_last_transaction,ratio_to_median_purchase_price,used_c
 
     response = requests.post(URL, json=payload, headers=headers)
     prediction = response.json()['outputs'][0]['data'][0]
-
     print(prediction)
     return "Fraud" if prediction >=0.995 else "Not fraud"
 
@@ -42,8 +41,8 @@ demo = gr.Interface(
     inputs=["number","number","number","number","number"], 
     outputs="textbox",
     examples=[
-        [0.3111400080477545,1.9459399775518593,1.0,0.0,0.0],
-        [175.98918151972342,0.8556228290724207,0.0,0.0,1.0]
+        [0.0, 1.0, 1.0, 1.0, 0.0],
+        [100, 1.2, 0.0, 0.0, 1.0]
         ],
     title="Predict Credit Card Fraud"
     )
