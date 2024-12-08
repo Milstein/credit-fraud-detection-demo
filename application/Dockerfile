@@ -1,4 +1,4 @@
-FROM quay.io/fedora/python-310
+FROM python:3.10.4
 WORKDIR /tmp
 
 COPY . /tmp
