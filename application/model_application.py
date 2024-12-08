@@ -13,14 +13,14 @@ GRADIO_SERVER_PORT = int(os.getenv("GRADIO_SERVER_PORT"))   # Automatically set 
 GRADIO_SERVER_NAME = os.getenv("GRADIO_SERVER_NAME")        # Automatically set by the Dockerfile
 
 # Create a small function that sends data to the inference endpoint and recieves a prediction
-def predict(distance_from_home,distance_from_last_transaction,ratio_to_median_purchase_price,repeat_retailer,used_chip,used_pin_number,online_order):
+def predict(distance_from_last_transaction,ratio_to_median_purchase_price,used_chip,used_pin_number,online_order):
     payload = {
         "inputs": [
             {
                 "name": "dense_input", 
-                "shape": [1, 7], 
+                "shape": [1, 5], 
                 "datatype": "FP32",
-                "data": [[distance_from_home,distance_from_last_transaction,ratio_to_median_purchase_price,repeat_retailer,used_chip,used_pin_number,online_order]]
+                "data": [[distance_from_last_transaction,ratio_to_median_purchase_price,used_chip,used_pin_number,online_order]]
             },
             ]
         }
@@ -38,11 +38,11 @@ def predict(distance_from_home,distance_from_last_transaction,ratio_to_median_pu
 # We also set up a few example inputs to make it easier to try out the application.
 demo = gr.Interface(
     fn=predict, 
-    inputs=["number","number","number","number","number","number","number"], 
+    inputs=["number","number","number","number","number"], 
     outputs="textbox",
     examples=[
-        [57.87785658389723,0.3111400080477545,1.9459399775518593,1.0,1.0,0.0,0.0],
-        [15.694985541059943,175.98918151972342,0.8556228290724207,1.0,0.0,0.0,1.0]
+        [0.3111400080477545,1.9459399775518593,1.0,0.0,0.0],
+        [175.98918151972342,0.8556228290724207,0.0,0.0,1.0]
         ],
     title="Predict Credit Card Fraud"
     )
